@@ -1,17 +1,28 @@
+<?php
+require_once 'db.php';
+
+spl_autoload_register(function($classe){
+  require_once 'classes/'.$classe.'.php';
+});
+
+$vehiculeManager = new VehiculeManager($pdo);
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     <title>Carjax</title>
   </head>
   <body>
-    <div class="container">
-        <div id="result" class="container p-3 bg-dark text-white"></div>
+    <div class="container pt-5">
+        <div id="message"></div>
 
-    <form method="post" id="form" class="py-5">
+    <form method="post" id="form">
         <div class="form-group">
             <label for="marque">Marque</label>
             <input type="text" class="form-control" name="marque" id="marque">
@@ -32,10 +43,10 @@
             <input type="text" class="form-control" name="couleur" id="couleur">
         </div>
 
-        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" name="submit" id="submit" class="btn btn-primary">Submit</button>
     </form>
 
-    <table class="table">
+    <table class="table mt-5">
         <thead>
             <tr>
             <th scope="col">#</th>
@@ -46,13 +57,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            <?php foreach($vehiculeManager->getAll() as $vehicule): ?>
+                <tr>
+                    <th scope="row"><?= $vehicule['id_vehicule'] ?></th>
+                    <td><?= $vehicule['marque'] ?></td>
+                    <td><?= $vehicule['modele'] ?></td>
+                    <td><?= $vehicule['annee'] ?></td>
+                    <td><?= $vehicule['couleur'] ?></td>
+                    <td class="remove"><a href="" data-id="<?= $vehicule['id_vehicule'] ?>"><i class="fas fa-trash-alt mr-3"></i></a></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
@@ -62,5 +76,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
+    <!-- <script src="script1.js"></script> -->
   </body>
 </html>

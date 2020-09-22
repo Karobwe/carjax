@@ -22,6 +22,43 @@ $().ready(function() {
         });
     });
 
+    $('.edit').click(function(e) {
+        e.preventDefault();
+        // On désactive tout les autres inputs
+        $('table .form-control').attr('disabled', true);
+
+        // On active que les input de la lign courrante
+        let tr = $(this).parent();
+        $(tr).find('.form-control').attr('disabled', false);
+        $(tr).toggleClass('selected');
+
+        let icon = $(this).find('i.fas');
+        icon.removeClass('fa-edit');
+        icon.addClass('fa-check-square');
+
+        let row = $(this).parent();
+        let link = $(this.querySelector('a'));
+        link.click(function (e) {
+            e.preventDefault();
+        });
+
+        let id = link.attr('data-id');
+        id = parseInt(id);
+        
+
+        // $.ajax({
+        //     url: 'process.php?delete=' + id, 
+        //     type: 'get',
+        //     success: function(response) {
+        //         row.fadeOut();
+        //         showMessage('Le véhicule à bien été supprimer', 'warning');
+        //     },
+        //     error: function () {
+        //         showMessage('Une erreur c\'est produite', 'danger');
+        //     }
+        // });
+    });
+
     $('.remove').click(function(e) {
         e.preventDefault();
         let row = $(this).parent();

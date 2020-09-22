@@ -49,21 +49,24 @@ $vehiculeManager = new VehiculeManager($pdo);
     <table class="table mt-5">
         <thead>
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">Marque</th>
-            <th scope="col">Modele</th>
-            <th scope="col">Année</th>
-            <th scope="col">Couleur</th>
+                <th scope="col">#</th>
+                <th scope="col">Marque</th>
+                <th scope="col">Modele</th>
+                <th scope="col">Année</th>
+                <th scope="col">Couleur</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach($vehiculeManager->getAll() as $vehicule): ?>
                 <tr>
                     <th scope="row"><?= $vehicule['id_vehicule'] ?></th>
-                    <td><?= $vehicule['marque'] ?></td>
-                    <td><?= $vehicule['modele'] ?></td>
-                    <td><?= $vehicule['annee'] ?></td>
-                    <td><?= $vehicule['couleur'] ?></td>
+                    <td><input type="text" value="<?= $vehicule['marque'] ?>" class="p-2 form-control" disabled></td>
+                    <td><input type="text" value="<?= $vehicule['modele'] ?>" class="p-2 form-control" disabled></td>
+                    <td><input type="text" value="<?= $vehicule['annee'] ?>" class="p-2 form-control" disabled></td>
+                    <td><input type="text" value="<?= $vehicule['couleur'] ?>" class="p-2 form-control" disabled></td>
+                    <td class="edit"><a href="" data-id="<?= $vehicule['id_vehicule'] ?>"><i class="fas fa-edit mr-3"></i></a></td>
                     <td class="remove"><a href="" data-id="<?= $vehicule['id_vehicule'] ?>"><i class="fas fa-trash-alt mr-3"></i></a></td>
                 </tr>
             <?php endforeach; ?>
